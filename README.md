@@ -1,9 +1,9 @@
 # SWA
 
-SWA is a modding API designed for Unleashed Recompiled.
+SWA is a modding API designed for Mw05 Recompiled.
 
 > [!NOTE]
-> **It is currently only for internal use with Unleashed Recompiled**, as it has not yet been fully decoupled from it.
+> **It is currently only for internal use with Mw05 Recompiled**, as it has not yet been fully decoupled from it.
 >
 > This is currently just for making contributions to the API easier between forks and is by no means any progress towards code modding.
 

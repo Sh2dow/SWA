@@ -1,5 +1,8 @@
+// SWA API header (full includes)
 #pragma once
 
+// Note: SWA is currently a leftover from Unleashed Recompiled; we still
+// include the original headers so code that references these types compiles.
 #include <Hedgehog/Base/hhObject.h>
 #include <Hedgehog/Base/Container/hhMap.h>
 #include <Hedgehog/Base/Container/hhVector.h>
@@ -127,3 +130,4 @@
 #include <SWA/System/GameMode/WorldMap/WorldMapCamera.h>
 #include <SWA/System/GameMode/WorldMap/WorldMapCursor.h>
 
+#endif
