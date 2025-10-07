@@ -28,26 +28,28 @@ namespace boost
 
             void add_ref()
             {
-                std::atomic_ref useCount(use_count_.value);
-
+                // Use volatile operations instead of atomic_ref to avoid alignment issues
+                volatile uint32_t* vol_ptr = &use_count_.value;
                 be<uint32_t> original, incremented;
                 do
                 {
                     original = use_count_;
                     incremented = original + 1;
-                } while (!useCount.compare_exchange_weak(original.value, incremented.value));
+                    *vol_ptr = incremented.value;
+                } while (*vol_ptr != incremented.value);
             }
 
             void release()
             {
-                std::atomic_ref useCount(use_count_.value);
-
+                // Use volatile operations instead of atomic_ref to avoid alignment issues
+                volatile uint32_t* vol_ptr = &use_count_.value;
                 be<uint32_t> original, decremented;
                 do
                 {
                     original = use_count_;
                     decremented = original - 1;
-                } while (!useCount.compare_exchange_weak(original.value, decremented.value));
+                    *vol_ptr = decremented.value;
+                } while (*vol_ptr != decremented.value);
 
                 if (decremented == 0)
                 {
@@ -58,14 +60,15 @@ namespace boost
 
             void weak_release()
             {
-                std::atomic_ref weakCount(weak_count_.value);
-
+                // Use volatile operations instead of atomic_ref to avoid alignment issues
+                volatile uint32_t* vol_ptr = &weak_count_.value;
                 be<uint32_t> original, decremented;
                 do
                 {
                     original = weak_count_;
                     decremented = original - 1;
-                } while (!weakCount.compare_exchange_weak(original.value, decremented.value));
+                    *vol_ptr = decremented.value;
+                } while (*vol_ptr != decremented.value);
 
                 if (decremented == 0)
                 {
